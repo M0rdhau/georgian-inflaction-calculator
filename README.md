@@ -13,3 +13,7 @@ Or visit this repo's github pages page: https://m0rdhau.github.io/georgian-infla
 
 Data taken from https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?end=2024&locations=GE&start=1995
 Will work for any countries from the dataset with a little adjustment
+
+
+Found it: https://www.geostat.ge/cpi/
+But I will still keep my little calculator here.
