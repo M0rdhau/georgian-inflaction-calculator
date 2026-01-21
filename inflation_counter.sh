@@ -13,13 +13,14 @@ fi
 starting_year=$1
 ending_year=$2
 starting_price=$3
+ending_price=$starting_price
 
 starting_index=$(($starting_year - $initial_year))
 ending_index=$(($ending_year - $initial_year))
 for i in $(seq $starting_index $ending_index); do
   percent=$(echo $georgia | cut -d "," -f"$i" | sed 's/\"//g')
-  starting_price_calc="$starting_price + ($starting_price "'*'" $percent / 100)"
-  echo "$starting_price_calc"
-  starting_price=$(bc <<< "$starting_price_calc")
-  echo "$starting_price"
+  price_calc="$ending_price + ($ending_price "'*'" $percent / 100)"
+  ending_price=$(bc <<< "$price_calc")
 done
+
+echo "The price in Georgia from $starting_year to $ending_year has changed from $starting_price to: $(printf "%.2f" $ending_price)"
