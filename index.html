@@ -4,34 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Georgian Inflation Calculator</title>
-    <script>
-        async function loadFile(url) {
-          try {
-            const response = await fetch(url);
-        
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-        
-            const data = await response.text();
-            return data;
-          } catch (error) {
-            console.error('Error:', error);
-          }
-        }
-        
-        // Example usage:
-        csv_file = "";
-        loadFile('https://raw.githubusercontent.com/M0rdhau/georgian-inflaction-calculator/refs/heads/main/inflation.csv')
-          .then(value => {
-            csv_file = value;
-          });
-        console.log(csv_file);
-        // needed_csv = [csv_file.split('\n')[0], csv_file.split('\n').filter(line => line.includes('Georgia'))];
-        // console.log(needed_csv);
-    </script>
 </head>
 
+<body>
 <label for="starting_year">Starting year(min 1995 (we didn't have Gela before)):</label>
 <br />
 <input
@@ -69,4 +44,79 @@
 <p>
     End Price: <span id="end_price">-</span>
 </p>
+</body>
 </html>
+
+<script>
+        let csv_file = '';
+        async function loadFile(url) {
+          try {
+            const response = await fetch(url);
+        
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        
+            csv_file = await response.text();
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        }
+        loadFile('https://raw.githubusercontent.com/M0rdhau/georgian-inflaction-calculator/refs/heads/main/georgia.csv');
+        console.log(csv_file);
+        
+        let start_year_element = document.getElementById('starting_year');
+        let end_year_element = document.getElementById('end_year');
+        let start_price_element = document.getElementById('start_price');
+        let end_price_element = document.getElementById('end_price');
+
+        function calculateEndPrice() {
+            let start_year = parseInt(start_year_element.value);
+            let end_year = parseInt(end_year_element.value);
+            let start_price = parseFloat(start_price_element.value);
+
+            if (isNaN(start_year) || isNaN(end_year) || isNaN(start_price)) {
+                end_price_element.textContent = '-';
+                return;
+            }
+
+            if (start_year < 1995 || end_year > 2024 || start_year > end_year) {
+                end_price_element.textContent = 'Invalid input';
+                return;
+            }
+
+            let current_price = start_price;
+            csv_file = csv_file.replaceAll("\"", "");
+            let lines = csv_file.split('\n').slice(0, 2);
+            let header = lines[0].split(',');
+
+            for (let year = start_year + 1; year <= end_year; year++) {
+                let yearIndex = header.indexOf(year.toString());
+                if (yearIndex === -1) {
+                    console.log("wtf", year);
+                    continue;
+                }
+
+                for (let i = 1; i < lines.length; i++) {
+                    let columns = lines[i].split(',');
+                    if (columns[0] === 'Georgia') {
+                        let inflationRate = parseFloat(columns[yearIndex]);
+                        if (!isNaN(inflationRate)) {
+                            current_price *= (1 + inflationRate / 100);
+                        }
+                        console.log(year, inflationRate, current_price)
+                        break;
+                    }
+                }
+            }
+
+            end_price_element.textContent = current_price.toFixed(2);
+        }
+
+
+        start_year_element.addEventListener('input', calculateEndPrice);
+        end_year_element.addEventListener('input', calculateEndPrice);
+        start_price_element.addEventListener('input', calculateEndPrice);
+        // needed_csv = [csv_file.split('\n')[0], csv_file.split('\n').filter(line => line.includes('Georgia'))];
+        // console.log(needed_csv);
+    </script>

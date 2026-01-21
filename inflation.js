@@ -14,4 +14,4 @@ async function loadFile(url) {
 }
 
 // Example usage:
-loadFile('https://raw.githubusercontent.com/M0rdhau/georgian-inflaction-calculator/refs/heads/main/inflation.csv');
+loadFile('https://raw.githubusercontent.com/M0rdhau/georgian-inflaction-calculator/refs/heads/main/georgia.csv');
