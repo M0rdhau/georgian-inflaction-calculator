@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Georgian Inflation Calculator</title>
-    <script src="https://cdnjs.cloudflare.com"></script>
-    <script src="inflation.js" defer></script>
+    <script>
+        async function loadFile(url) {
+          try {
+            const response = await fetch(url);
+        
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        
+            const data = await response.text();
+            return data;
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        }
+        
+        // Example usage:
+        csv_file = "";
+        loadFile('https://raw.githubusercontent.com/M0rdhau/georgian-inflaction-calculator/refs/heads/main/inflation.csv')
+          .then(value => {
+            csv_file = value;
+          });
+        console.log(csv_file);
+        // needed_csv = [csv_file.split('\n')[0], csv_file.split('\n').filter(line => line.includes('Georgia'))];
+        // console.log(needed_csv);
+    </script>
 </head>
 
 <label for="starting_year">Starting year(min 1995 (we didn't have Gela before)):</label>
