@@ -6,7 +6,7 @@ One day I wanted to tell my grandma how much her restoration of a table that cos
 Usage example:
 ```
 $ ./inflation_counter.sh 2005 2024 1000
-The price in Georgia from 2005 to 2024 has changed from 1000 to: 3988.00
+The price in Georgia from 2005 to 2024 has changed from 1000 to: 2732.70
 ```
 
 Data taken from https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?end=2024&locations=GE&start=1995
