@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Georgian Inflation Calculator</title>
+    <script src="https://cdnjs.cloudflare.com"></script>
+    <script src="inflation.js" defer></script>
+</head>
+
+<label for="starting_year">Starting year(min 1995 (we didn't have Gela before)):</label>
+<br />
+<input
+  type="text"
+  id="starting_year"
+  name="starting_year"
+  required
+  minlength="4"
+  maxlength="4"
+  size="10" />
+<br /><br />
+
+<label for="end_year">End year(max 2024):</label>
+<br />
+<input
+  type="text"
+  id="end_year"
+  name="end_year"
+  required
+  minlength="4"
+  maxlength="4"
+  size="10" />
+
+<br /><br />
+
+<label for="start_price">Starting price:</label>
+<br />
+<input
+  type="text"
+  id="start_price"
+  name="start_price"
+  required
+  size="10" />
+
+<p>
+    End Price: <span id="end_price">-</span>
+</p>
+</html>
