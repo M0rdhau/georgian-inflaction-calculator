@@ -4,6 +4,11 @@ key="$(grep 'Country' inflation.csv)"
 georgia="$(grep 'Georgia' inflation.csv)"
 initial_year=1963 # used for calculating index offsets, not actually a year
 
+if [ "$#" -ne 3 ] || [ "$1" == "usage" ]; then
+  echo "Usage: $0 starting_year ending_year starting_price"
+  exit 1
+fi
+
 # no input validation ftw
 starting_year=$1
 ending_year=$2
